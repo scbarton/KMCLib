@@ -53,6 +53,9 @@ class ProcessStatistics(KMCAnalysisPlugin):
         self.__spatial_data = None
         self.__current_count = 0
 
+        self.__proc_data=[]
+        self.__proc_count=[0]*len(self.__processes)
+
     def setup(self, step, time, configuration):
         """
         Recieves the setup call.
@@ -76,9 +79,16 @@ class ProcessStatistics(KMCAnalysisPlugin):
             self.__current_count = 0
             self.__last_time = time
 
+            self.__proc_data.append(self.__proc_count)
+            self.__proc_count=[0]*len(self.__processes)            
+
         # Add the new value.
         if configuration.latestEventProcess() in self.__processes:
             self.__current_count += 1
+
+            ii=self.__processes.index(configuration.latestEventProcess())
+            self.__proc_count[ii] += 1
+        
             # Add the spatially resolved data.
             if self.__spatially_resolved:
                 self.__spatial_data[configuration.latestEventSite()] += 1.0
@@ -89,6 +99,7 @@ class ProcessStatistics(KMCAnalysisPlugin):
         """
         
         self.data=numpy.array(self.__data)
+        self.proc_data=numpy.array(self.__proc_data)
         self.time=self.__time_interval * numpy.arange(len(self.data))
         
         if self.__spatially_resolved:
