@@ -1,5 +1,7 @@
 ## *KMCLib* - a general framework for lattice kinetic Monte Carlo (KMC) simulations
 
+This is a fork of the original code, for the purposes of customising it for our research needs.  The original README follows.
+
 ### License and copying
 
     Developed by Mikael Leetmaa at the Royal Institute of Technology (KTH), Sweden.
