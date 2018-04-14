@@ -87,6 +87,10 @@ class ProcessStatistics(KMCAnalysisPlugin):
         """
         Recieves the finalize call after the MC loop.
         """
+        
+        self.data=numpy.array(self.__data)
+        self.time=self.__time_interval * numpy.arange(len(self.data))
+        
         if self.__spatially_resolved:
             # Normalize the spatial data with time.
             self.__spatial_data /= self.__last_time
