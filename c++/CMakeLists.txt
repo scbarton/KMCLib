@@ -21,9 +21,8 @@ endif()
 # If it is, set use mpicxx.
 if(MPI)
   message( STATUS "== This is a parallel MPI build ==" )
-  # Force using the "mpicxx" compiler wrapper.
-  include(CMakeForceCompiler)
-  cmake_force_cxx_compiler(${MPI} "System CXX compiler with MPI wrapping")
+  # Specify the "mpicxx" compiler wrapper.
+  set (CMAKE_CXX_COMPILER ${MPI})
 
   # User verbosit as default when compiling in parallel.
   set( CMAKE_VERBOSE_MAKEFILE on )
