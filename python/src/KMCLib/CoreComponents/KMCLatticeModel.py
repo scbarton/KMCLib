@@ -214,6 +214,15 @@ must be given as string."""
                 # Check if it is possible to take a step.
                 nP = cpp_model.interactions().totalAvailableSites()
                 if nP == 0:
+                    now = self.__cpp_timer.simulationTime()
+                    prettyPrint(" KMCLib: %i steps executed. time: %20.10e "%(step, now))
+
+                    # Perform IO using the trajectory object.
+                    if use_trajectory:
+                        trajectory.append(simulation_time  = now,
+                                          step             = step,
+                                          configuration    = self.__configuration)
+
                     raise Error("No more available processes.")
 
                 # Take a step.
